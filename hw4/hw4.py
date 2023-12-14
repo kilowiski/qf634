@@ -10,12 +10,13 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
 
 keras.utils.set_random_seed(5)
 tf.config.experimental.enable_op_determinism()
 
 # Loading Dataset
-data = pd.read_csv("Churn_Modelling.csv")
+data = pd.read_csv("/home/kilo/Desktop/qf634/qf634file/Churn_Modelling.csv")
 
 # Generating Dependent Variable Vectors
 Y = data.iloc[:, -1].values
@@ -48,12 +49,17 @@ history = NNmodel.fit(X_train, Y_train, batch_size=100, epochs=500)
 eval_train = NNmodel.evaluate(
     X_train, Y_train, return_dict=True
 )  ### evaluates the loss and accuracy as specified in the Compiler
+print('------- evaluate training -------')
 print(eval_train)
 
-import matplotlib.pyplot as plt
+#newdata prediction
+newdata = sc.transform([[0, 0, 1, 650, 1, 60, 2, 300000, 2, 1, 0, 80000]])
+print('------- newdata predict -------')
+print(NNmodel.predict(newdata))
 
-print(history.history["accuracy"])
-print(history.history["loss"])
+#plot relevant shit
+#print(history.history["accuracy"])
+#print(history.history["loss"])
 plt.plot(history.history["accuracy"])
 plt.plot(history.history["loss"])
 plt.title("model accuracy")
@@ -62,5 +68,4 @@ plt.xlabel("epoch")
 plt.legend(["accuracy", "loss"], loc="upper left")
 plt.show()
 
-newdata = sc.transform([[0, 0, 1, 650, 1, 60, 2, 300000, 2, 1, 0, 80000]])
-print(NNmodel.predict(newdata))
+
