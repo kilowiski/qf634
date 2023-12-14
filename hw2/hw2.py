@@ -67,7 +67,7 @@ roc_auc_logreg = metrics.auc(fpr, tpr)
 #plot stuff
 plt.rc("font", size=14)
 plt.title("Receiver Operating Characteristic")
-plt.plot(fpr, tpr, "b", label="AUC = %0.2f" % roc_auc_logreg)
+plt.plot(fpr, tpr, "b", label="AUC = %0.5f" % roc_auc_logreg)
 plt.legend(loc="lower right")
 plt.plot([0, 1], [0, 1], "r--")
 plt.xlim([0, 1])
